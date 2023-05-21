@@ -1,5 +1,6 @@
 package com.planmate.server.config;
 
+import lombok.Generated;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -17,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+@Generated
 @Configuration
 public class SwaggerConfig {
     private static final String REFERENCE = "Bearer ";

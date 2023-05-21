@@ -2,6 +2,7 @@ package com.planmate.server.config;
 
 import com.planmate.server.service.member.MemberService;
 import com.planmate.server.util.JwtCustomFilter;
+import lombok.Generated;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@Generated
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)//@PreAuthorize 어노테이션을 메소드 단위로 추가하기 위해
 public class SecurityConfig {
@@ -19,6 +21,7 @@ public class SecurityConfig {
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
         return new WebSecurityCustomizer() {
+            @Generated
             @Override
             public void customize(WebSecurity web) {
                 web.ignoring().antMatchers(

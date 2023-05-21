@@ -6,10 +6,12 @@ import com.planmate.server.service.member.MemberService;
 import com.planmate.server.service.member.MemberServiceImpl;
 import com.planmate.server.service.token.TokenService;
 import com.planmate.server.service.token.TokenServiceImpl;
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@Generated
 @Configuration
 public class SpringConfig {
     private final MemberRepository memberRepository;
