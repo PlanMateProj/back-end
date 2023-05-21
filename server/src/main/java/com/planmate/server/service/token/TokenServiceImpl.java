@@ -24,13 +24,11 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public Token reissueAccessToken(RefreshTokenDto refreshTokenDto) {
-        Long memberId = JwtUtil.getMemberId();
+        Member member = memberRepository.findById(refreshTokenDto.getId()).orElseThrow((() -> new MemberNotFoundException(refreshTokenDto.getId())));
 
-        Member member = memberRepository.findById(memberId).orElseThrow((() -> new MemberNotFoundException(memberId)));
+        Token token = tokenRepository.findById(refreshTokenDto.getId()).orElseThrow(() -> new MemberNotFoundException(refreshTokenDto.getId()));
 
-        Token token = tokenRepository.findById(memberId).orElseThrow(() -> new MemberNotFoundException(memberId));
-
-        tokenRepository.findByAccessTokenAndRefreshToken(JwtUtil.getAccessToken(), refreshTokenDto.getRefreshToken()).orElseThrow(() -> new TokenNotFoundException(memberId));
+        tokenRepository.findByAccessTokenAndRefreshToken(refreshTokenDto.getAccessToken(), refreshTokenDto.getRefreshToken()).orElseThrow(() -> new TokenNotFoundException(refreshTokenDto.getId()));
 
         token.setAccessToken(JwtUtil.createJwt(member));
         token.setAccessTokenExpiredAt(LocalDateTime.now().plusDays(JwtUtil.ACCESS_TOKEN_EXPIRE_TIME));
