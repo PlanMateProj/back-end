@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -58,9 +58,9 @@ public class MemberServiceImpl implements MemberService {
         Token token = Token.builder()
                 .memberId(member.getMemberId())
                 .accessToken(JwtUtil.createJwt(member))
-                .accessTokenExpiredAt(LocalDateTime.now().plusDays(JwtUtil.ACCESS_TOKEN_EXPIRE_TIME))
+                .accessTokenExpiredAt(LocalDate.now().plusDays(JwtUtil.ACCESS_TOKEN_EXPIRE_TIME))
                 .refreshToken(JwtUtil.createRefreshToken())
-                .refreshTokenExpiredAt(LocalDateTime.now().plusYears(1))
+                .refreshTokenExpiredAt(LocalDate.now().plusYears(1))
                 .build();
 
         tokenRepository.save(token);

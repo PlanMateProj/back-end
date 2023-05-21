@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TokenController {
     private final TokenService tokenService;
-    private final MemberService memberService;
 
-    @GetMapping("/expiredAt")
+    @GetMapping("/expired_at")
     @ApiOperation("토큰 만료 확인 api")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "정상 응답"),

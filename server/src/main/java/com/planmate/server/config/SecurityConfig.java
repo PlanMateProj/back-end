@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilterAfter(new JwtCustomFilter(memberService), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/token/expiredAt").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers("/token/expired_at").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
                 .and().build();
     }
 }
