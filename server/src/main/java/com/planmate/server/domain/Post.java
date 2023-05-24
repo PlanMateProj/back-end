@@ -7,39 +7,61 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "post")
 @ApiModel(value = "게시글 테이블")
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class Post {
     @Id
+    @Column(name = "post_id",columnDefinition = "int")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
-    @ApiModelProperty(example = "게시글 아이디")
+    @ApiModelProperty(example = "게시글 고유 식별자")
     private Long postId;
 
-    @Column(name = "title")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    @ApiModelProperty(example = "게시글 소유 맴버와 매핑")
+    private Member owner;
+
+    @Column(name = "title",columnDefinition = "varchar(100)")
     @ApiModelProperty(example = "게시글 제목")
     private String title;
 
-    @Column(name = "content")
+    @Column(name = "content",columnDefinition = "longtext")
     @ApiModelProperty(example = "본문 내용")
     private String content;
 
-    @Column(name = "updated_at")
+    @UpdateTimestamp
+    @Column(name = "updated_at",columnDefinition = "datetime")
     @ApiModelProperty(example = "게시글 업데이트 날짜")
     private Date updatedAt;
 
-    public static Post of(PostDto postDto) {
-        return Post.builder()
-                .title(postDto.getTitle())
-                .content(postDto.getContent())
-                .build();
+    @OneToMany(mappedBy = "post",orphanRemoval = true)
+    final private List<PostTag> postTagList = new ArrayList<>();
+
+    @Builder
+    public Post(String title,String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public void setOwner(Member owner) {
+        this.owner = owner;
+    }
+
+    public void updateTitle(String title) {
+        this.title = title;
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
     }
 }
