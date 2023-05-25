@@ -1,13 +1,10 @@
 package com.planmate.server.controller;
 
-import com.planmate.server.domain.Post;
 import com.planmate.server.domain.Token;
 import com.planmate.server.dto.request.post.PostDto;
 import com.planmate.server.dto.request.post.ScrapDto;
 import com.planmate.server.dto.response.post.PostResponseDto;
 import com.planmate.server.repository.*;
-import com.planmate.server.service.member.MemberService;
-import io.swagger.models.Response;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,7 +71,13 @@ class PostControllerTest {
 
     @Test
     void findPostByTagName() {
-        String url ="http://localhost:"+port+"/check/postId=11";
+        String url ="http://localhost:"+port+"/find/with?tagName=#개발";
+
+        ResponseEntity<PostResponseDto[]> response = restTemplate.exchange(url,HttpMethod.GET,request,PostResponseDto[].class);
+        PostResponseDto postResponseDto = Arrays.stream(Objects.requireNonNull(response.getBody()))
+                .findFirst().orElse(null);
+
+        Assertions.assertThat(postResponseDto.getPostTagList()).contains("#개발");
     }
 
     @Test
