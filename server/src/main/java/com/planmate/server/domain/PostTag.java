@@ -25,7 +25,7 @@ public class PostTag {
     private String tagName;
 
     @JoinColumn(name = "post_id",columnDefinition = "int")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @ApiModelProperty(example = "게시물 참조 외래키")
     private Post post;
 

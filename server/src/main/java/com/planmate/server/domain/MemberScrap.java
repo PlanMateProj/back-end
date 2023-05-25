@@ -19,12 +19,12 @@ public class MemberScrap {
     @ApiModelProperty(example = "스크랩 식별자")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "member_id",columnDefinition = "int")
     @ApiModelProperty(example = "맴버 참조 외래키")
     private Member owner;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "post_id",columnDefinition = "int")
     @ApiModelProperty(example = "게시물 참조 외래키")
     private Post post;

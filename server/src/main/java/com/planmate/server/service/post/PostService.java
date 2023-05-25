@@ -9,7 +9,7 @@ import java.util.List;
 public interface PostService {
     PostResponseDto createPost(PostDto postDto);
     PostResponseDto findByPostId(Long postId);
-    void deletePostById(Long postId);
+    void deletePost(Long postId);
     void deleteScrapById(Long postId);
     List<PostResponseDto> findMyPost();
     PostResponseDto editPost(PostDto postDto);

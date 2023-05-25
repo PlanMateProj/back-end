@@ -9,6 +9,7 @@ import com.planmate.server.dto.request.post.ScrapDto;
 import com.planmate.server.dto.response.post.PostResponseDto;
 import com.planmate.server.exception.member.MemberNotFoundException;
 import com.planmate.server.exception.post.PostNotFoundException;
+import com.planmate.server.exception.post.ScrapNotFoundException;
 import com.planmate.server.repository.MemberRepository;
 import com.planmate.server.repository.MemberScrapRepository;
 import com.planmate.server.repository.PostRepository;
@@ -86,8 +87,11 @@ public class PostServiceImpl implements PostService {
      * @param postId 쿼리 파라미터로 전달받은 게시물의 Id 값입니다.
      */
     @Override
-    public void deletePostById(Long postId) {
-        postRepository.deleteById(postId);
+    public void deletePost(Long postId) {
+        Long memberId = JwtUtil.getMemberId();
+        Post post = postRepository.findByPostIdAndOwnerMemberId(postId,memberId)
+                .orElseThrow(() -> new PostNotFoundException(postId));
+        postRepository.delete(post);
     }
 
     /**
@@ -133,11 +137,17 @@ public class PostServiceImpl implements PostService {
     /**
      * 게시물 스크랩을 취소합니다.
      * @param postId 쿼리 파라미터로 받은 게시물의 Id 값입니다.
+     * @throws ScrapNotFoundException memberId와 postId에 해당하는 스크랩을 찾지 못했을 때 발생하는 예외입니다.
      */
     @Override
     public void deleteScrapById(Long postId) {
         Long memberId = JwtUtil.getMemberId();
         MemberScrap scrap = memberScrapRepository.findByOwnerMemberIdAndPostPostId(memberId,postId);
+
+        if (scrap == null) {
+            throw new ScrapNotFoundException(postId);
+        }
+
         memberScrapRepository.delete(scrap);
     }
 
