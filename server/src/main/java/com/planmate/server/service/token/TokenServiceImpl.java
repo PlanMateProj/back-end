@@ -22,6 +22,11 @@ public class TokenServiceImpl implements TokenService {
         this.memberRepository = memberRepository;
     }
 
+    /**
+     * @author 지승언
+     * @param refreshTokenDto (access token, refresh token, member id)
+     * @return 재갱신된 access token, refresh token, member id
+     * */
     @Override
     public Token reissueAccessToken(RefreshTokenDto refreshTokenDto) {
         Member member = memberRepository.findById(refreshTokenDto.getId()).orElseThrow((() -> new MemberNotFoundException(refreshTokenDto.getId())));

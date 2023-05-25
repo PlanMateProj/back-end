@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class TokenControllerTest {
+public class TokenControllerTest {
     @LocalServerPort
     private int port;
 
@@ -33,6 +33,8 @@ class TokenControllerTest {
     private HttpEntity request;
     private Token token;
     private HttpHeaders httpHeaders;
+
+    public TokenControllerTest() {}
 
     @BeforeEach
     public void prepare() {
@@ -48,6 +50,7 @@ class TokenControllerTest {
     void checkExpiredAt() {
         //given
         String url = "http://localhost:" + port + "/token/expired_at";
+        request = new HttpEntity(httpHeaders);
         //when
         ResponseEntity<Boolean> response = testRestTemplate.exchange(url, HttpMethod.GET, request, Boolean.class);
         //then
