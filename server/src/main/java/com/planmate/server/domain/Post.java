@@ -26,7 +26,7 @@ public class Post {
     @ApiModelProperty(example = "게시글 고유 식별자")
     private Long postId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "owner_id")
     @ApiModelProperty(example = "게시글 소유 맴버와 매핑")
     private Member owner;

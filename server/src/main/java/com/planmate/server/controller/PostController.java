@@ -31,17 +31,17 @@ public class PostController {
         return ResponseEntity.ok(postService.createPost(postDto));
     }
 
-    @GetMapping("/find/with/{tagName}")
+    @GetMapping("/find/with")
     @ApiOperation("태그로 게시물 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "200",description = "태그로 게시물 조회 성공"),
             @ApiResponse(responseCode = "404",description = "태그로 게시물을 조회하는데 실패함")
     })
-    public ResponseEntity<List<PostResponseDto>> createPost(@RequestParam("tagName") String tagName) {
+    public ResponseEntity<List<PostResponseDto>> findPostByTagName(@RequestParam("tagName") String tagName) {
         return ResponseEntity.ok(postService.findPostByTagName(tagName));
     }
 
-    @GetMapping("/check/{postId}")
+    @GetMapping("/check")
     @ApiOperation("Id로 게시물 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "200",description = "게시물 정상 조회"),
@@ -53,7 +53,7 @@ public class PostController {
         return ResponseEntity.ok(postService.findByPostId(postId));
     }
 
-    @DeleteMapping("/remove/{postId}")
+    @DeleteMapping("/remove")
     @ApiOperation("Id로 게시글 삭제")
     @ApiResponses({
             @ApiResponse(responseCode = "200",description = "게시물 정상 삭제"),
@@ -62,7 +62,7 @@ public class PostController {
             @ApiResponse(responseCode = "404",description = "해당 Id를 가진 게시물이 없음")
     })
     public ResponseEntity deletePost(@RequestParam("postId") Long postId) {
-        postService.deletePostById(postId);
+        postService.deletePost(postId);
         return ResponseEntity.ok().build();
     }
 
@@ -114,7 +114,7 @@ public class PostController {
         return ResponseEntity.ok(postService.findScrapPost());
     }
 
-    @DeleteMapping("/remove/scrap/{postId}")
+    @DeleteMapping("/remove/scrap")
     @ApiOperation("게시물 스크랩 취소")
     @ApiResponses({
             @ApiResponse(responseCode = "200",description = "게시물 스크랩 취소 성공"),
