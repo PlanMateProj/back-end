@@ -50,7 +50,7 @@ public class JwtCustomFilter extends OncePerRequestFilter {
 
         // Token 검증
         if (!JwtUtil.validateToken(token)) {
-            log.info("JWT Token is not valid");
+            log.error("JWT Token is not valid");
 
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "JWT Token is not valid");
 
