@@ -14,25 +14,29 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 게시물 테이블입니다. 맴버 참조를 위한 외래키를 가집니다.
+ * @author kimhojin98@naver.com
+ */
 @Entity
 @Table(name = "post")
-@ApiModel(value = "게시글 테이블")
+@ApiModel(value = "게시물 테이블")
 @Getter
 @NoArgsConstructor
 public class Post {
     @Id
     @Column(name = "post_id",columnDefinition = "int")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ApiModelProperty(example = "게시글 고유 식별자")
+    @ApiModelProperty(example = "게시물 고유 식별자")
     private Long postId;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "owner_id")
-    @ApiModelProperty(example = "게시글 소유 맴버와 매핑")
+    @ApiModelProperty(example = "게시물 소유 맴버와 매핑")
     private Member owner;
 
     @Column(name = "title",columnDefinition = "varchar(100)")
-    @ApiModelProperty(example = "게시글 제목")
+    @ApiModelProperty(example = "게시물 제목")
     private String title;
 
     @Column(name = "content",columnDefinition = "longtext")
@@ -41,7 +45,7 @@ public class Post {
 
     @UpdateTimestamp
     @Column(name = "updated_at",columnDefinition = "datetime")
-    @ApiModelProperty(example = "게시글 업데이트 날짜")
+    @ApiModelProperty(example = "게시물 업데이트 날짜")
     private Date updatedAt;
 
     @OneToMany(mappedBy = "post",orphanRemoval = true)

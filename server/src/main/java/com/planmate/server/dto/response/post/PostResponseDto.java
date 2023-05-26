@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 게시물 응답시 사용되는 Dto 객체입니다.
+ * @author kimhojin98@naver.com
+ */
 @Data
 @Builder
 @NoArgsConstructor

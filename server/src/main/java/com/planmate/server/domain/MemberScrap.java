@@ -1,11 +1,13 @@
 package com.planmate.server.domain;
 
-import com.planmate.server.dto.request.post.PostDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-
 import javax.persistence.*;
 
+/**
+ * Member와 Post의 중간 테이블입니다. 게시물 스크랩 로직에서 사용되며, 맴버와 게시물 외래키를 가집니다.
+ * @author kimhojin98@naver.com
+ */
 @Entity
 @Table(name = "member_scrap")
 @Getter

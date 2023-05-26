@@ -41,6 +41,7 @@ public class PostServiceImpl implements PostService {
 
     /**
      * 게시물을 생성하고 데이터베이스에 저장합니다.
+     * @author kimhojin98@naver.com
      * @param postDto 요청으로 받은 게시물 Dto 입니다.
      * @return PostResponseDto - 게시물이 성공적으로 데이터베이스에 저장되면 반환되는 게시물 응답 Dto 입니다.
      */
@@ -58,6 +59,7 @@ public class PostServiceImpl implements PostService {
 
     /**
      * 게시물을 생성하고 데이터베이스에 저장합니다.
+     * @author kimhojin98@naver.com
      * @param postId 쿼리 파라미터로 전달된 게시물의 Id 값입니다.
      * @return PostResponseDto - 게시물이 성공적으로 조회되면 반환되는 게시물 응답 Dto 입니다.
      */
@@ -70,6 +72,7 @@ public class PostServiceImpl implements PostService {
 
     /**
      * 게시물을 수정하고 데이터베이스에 반영합니다.
+     * @author kimhojin98@naver.com
      * @param postDto 요청으로 받은 게시물 Dto 입니다.
      * @return PostResponseDto - 게시물이 성공적으로 수정되어 데이터베이스에 반영되면 반환되는 게시물 응답 Dto 입니다.
      */
@@ -84,6 +87,7 @@ public class PostServiceImpl implements PostService {
 
     /**
      * 게시물을 삭제합니다.
+     * @author kimhojin98@naver.com
      * @param postId 쿼리 파라미터로 전달받은 게시물의 Id 값입니다.
      */
     @Override
@@ -96,6 +100,7 @@ public class PostServiceImpl implements PostService {
 
     /**
      * 유저 자신이 등록한 게시물 모두를 조회합니다.
+     * @author kimhojin98@naver.com
      * @return PostResponseDto - 유저 자신이 게시물들을 성공적으로 조회하면 반환되는 게시물 응답 Dto 리스트입니다.
      */
     @Override
@@ -109,6 +114,7 @@ public class PostServiceImpl implements PostService {
 
     /**
      * 게시물을 스크랩합니다.
+     * @author kimhojin98@naver.com
      * @param scrapDto 요청으로 전달받은 스크랩된 게시물 Dto 입니다.
      * @return PostResponseDto - 게시물이 성공적으로 스크랩되어 데이터베이스에 반영되면 반환되는 게시물 응답 Dto 입니다.
      */
@@ -124,6 +130,7 @@ public class PostServiceImpl implements PostService {
 
     /**
      * 유저 자신이 스크랩한 게시물을 조회합니다.
+     * @author kimhojin98@naver.com
      * @return PostResponseDto 유저 자신이 스크랩한 게시물 조회에 성공하면 반환되는 게시물 응답 Dto 리스트입니다.
      */
     @Override
@@ -136,6 +143,7 @@ public class PostServiceImpl implements PostService {
 
     /**
      * 게시물 스크랩을 취소합니다.
+     * @author kimhojin98@naver.com
      * @param postId 쿼리 파라미터로 받은 게시물의 Id 값입니다.
      * @throws ScrapNotFoundException memberId와 postId에 해당하는 스크랩을 찾지 못했을 때 발생하는 예외입니다.
      */
@@ -152,6 +160,8 @@ public class PostServiceImpl implements PostService {
     }
 
     /**
+     * 태그를 통해 게시물을 조회합니다.
+     * @author kimhojin98@naver.com
      * @param tagName 쿼리 파라미터로 전달받은 태그 입니다.
      * @return List<PostResponseDto> 태그를 가지는 게시물들 조회에 성공하면 반한되는 게시물 응답 Dto 리스트입니다.
      */
