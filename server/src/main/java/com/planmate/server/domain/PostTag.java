@@ -6,6 +6,10 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * 게시물 태그 테이블입니다. 게시물 외래키를 관리합니다.
+ * @author kimhojin98@naver.com
+ */
 @Entity
 @Table(name = "post_tag")
 @ApiModel(value = "게시물 태그 테이블")
