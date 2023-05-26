@@ -12,6 +12,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Generated
+/**
+ * @author 지승언
+ * service 로직에 대한 bean을 직접 등록하는 파일이다
+ * 직접 등록하는 이유는 나중에 서비스 교체할 일이 있을 경우와 유지보수를 위해서이다
+ * */
 @Configuration
 public class SpringConfig {
     private final MemberRepository memberRepository;

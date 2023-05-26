@@ -12,12 +12,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author 지승언
+ * */
 @RestController
 @RequestMapping("/token")
 @RequiredArgsConstructor
 public class TokenController {
     private final TokenService tokenService;
 
+    /**
+     * token이 만료인지 확인하는 API
+     * @return 만료 시 true
+     * */
     @GetMapping("/expired_at")
     @ApiOperation("토큰 만료 확인 api")
     @ApiResponses({
@@ -30,6 +37,11 @@ public class TokenController {
         return ResponseEntity.ok(JwtUtil.isExpired(JwtUtil.getAccessToken()));
     }
 
+    /**
+     * access token 재발급 API
+     * @param refreshTokenDto (access_token, refresh_token)
+     * @return access_token
+     * */
     @PostMapping("/refresh")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "정상 응답"),
