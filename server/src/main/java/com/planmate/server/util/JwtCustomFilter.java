@@ -84,6 +84,7 @@ public class JwtCustomFilter extends OncePerRequestFilter {
         }
 
         Member result = member.get();
+        log.info("{}",result.getAuthorities());
         String role;
 
         if(result.hasRole("ADMIN")) {

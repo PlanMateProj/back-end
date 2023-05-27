@@ -22,7 +22,9 @@ import java.util.List;
 @Table(name = "post")
 @ApiModel(value = "게시물 테이블")
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Post {
     @Id
     @Column(name = "post_id",columnDefinition = "int")
@@ -51,10 +53,11 @@ public class Post {
     @OneToMany(mappedBy = "post",orphanRemoval = true)
     final private List<PostTag> postTagList = new ArrayList<>();
 
-    @Builder
-    public Post(String title,String content) {
-        this.title = title;
-        this.content = content;
+    public static Post of(PostDto postDto) {
+        return Post.builder()
+                .title(postDto.getTitle())
+                .content(postDto.getContent())
+                .build();
     }
 
     public void setOwner(Member owner) {

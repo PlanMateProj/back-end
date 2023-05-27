@@ -13,6 +13,7 @@ import com.planmate.server.vo.GoogleIdTokenVo;
 import lombok.Generated;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -35,6 +36,7 @@ public class MemberServiceImpl implements MemberService {
      * @param id
      * @return id와 일치하는 Member 객체를 반환한다.
      * */
+    @Transactional(readOnly = true)
     @Override
     public Optional<Member> findMemberById(final Long id) {
         log.info("called member service");

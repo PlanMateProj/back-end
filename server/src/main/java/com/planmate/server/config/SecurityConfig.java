@@ -4,6 +4,7 @@ import com.planmate.server.service.member.MemberService;
 import com.planmate.server.util.JwtCustomFilter;
 import lombok.Generated;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -58,6 +59,15 @@ public class SecurityConfig {
                 .addFilterAfter(new JwtCustomFilter(memberService), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/token/expired_at").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers("/create").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers("/find/with").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers("/check").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/remove").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers(HttpMethod.GET,"/find").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers(HttpMethod.POST,"/edit").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers(HttpMethod.POST,"/scrap").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers(HttpMethod.GET,"/find/scrap").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers(HttpMethod.DELETE,"/remove/scrap").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
                 .and().build();
     }
 }

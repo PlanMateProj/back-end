@@ -180,10 +180,7 @@ public class PostServiceImpl implements PostService {
     }
 
     private Post createPostEntity(PostDto postDto) {
-        return Post.builder()
-                .title(postDto.getTitle())
-                .content(postDto.getContent())
-                .build();
+        return Post.of(postDto);
     }
 
     private Post findPostById(Long postId) {
