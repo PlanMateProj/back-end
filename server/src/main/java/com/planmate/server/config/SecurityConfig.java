@@ -28,7 +28,8 @@ public class SecurityConfig {
                         "/v3/api-docs/**",
                         "/swagger-resources/**",
                         "/health/**",
-                        "/login/**"
+                        "/login/**",
+                        "/token/refresh"
                 );
             }
         };
@@ -44,6 +45,9 @@ public class SecurityConfig {
                 .addFilterAfter(new JwtCustomFilter(memberService), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/token/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers("/token/expired_at").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers("/subject/create").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers("/subject/remove/{subjectId}").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
                 .and().build();
     }
 }

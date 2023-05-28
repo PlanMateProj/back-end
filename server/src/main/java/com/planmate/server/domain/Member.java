@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member {
+
     @Id
     @Column(name = "member_id", columnDefinition = "int")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

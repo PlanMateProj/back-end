@@ -1,7 +1,7 @@
 package com.planmate.server.controller;
 
 import com.planmate.server.dto.request.subject.SubjectCreateDto;
-import com.planmate.server.service.Subject.SubjectService;
+import com.planmate.server.service.subject.SubjectService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -28,7 +28,7 @@ public class SubjectController {
 
     }
 
-    @PostMapping("/remove/{subjectId}")
+    @DeleteMapping("/remove/{subjectId}")
     @ApiOperation("과목 삭제")
     @ApiResponses({
             @ApiResponse(responseCode = "200",description = "과목 삭제 성공"),

@@ -9,9 +9,9 @@ import lombok.Setter;
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SubjectCreateDto {
 
-    private long id;
+    private Long id;
     private String name;
-    private int type;
+    private Boolean type;
     private int dDay;
 
 }

@@ -5,7 +5,9 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "subject")
@@ -19,14 +21,13 @@ public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",columnDefinition = "int")
-    private long id;
+    private Long id;
 
     @Column(name = "name",columnDefinition = "varchar(50)")
     private String name;
 
-    //@ColumnDefault("1")
     @Column(name = "type",columnDefinition = "TINYINT(1)")
-    private int type;
+    private Boolean type;
 
     @Column(name = "max_study_time",columnDefinition = "time")
     private Date maxStudyTime;
@@ -45,5 +46,9 @@ public class Subject {
 
     @Column(name = "end_at",columnDefinition = "datetime")
     private Date endAt;
+
+    @OneToMany(mappedBy = "subject",orphanRemoval = true)
+    final private List<MemberSubject> postTagList = new ArrayList<>();
+
 
 }
