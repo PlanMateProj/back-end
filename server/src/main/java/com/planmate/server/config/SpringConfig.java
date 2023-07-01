@@ -1,7 +1,6 @@
 package com.planmate.server.config;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.planmate.server.repository.*;
 import com.planmate.server.service.member.MemberService;
 import com.planmate.server.service.member.MemberServiceImpl;
@@ -9,6 +8,8 @@ import com.planmate.server.service.post.PostService;
 import com.planmate.server.service.post.PostServiceImpl;
 import com.planmate.server.service.s3.S3UploadService;
 import com.planmate.server.service.s3.S3UploaderServiceImpl;
+import com.planmate.server.service.schedule.ScheduleService;
+import com.planmate.server.service.schedule.ScheduleServiceImpl;
 import com.planmate.server.service.tendinous.AlertService;
 import com.planmate.server.service.tendinous.AlertServiceImpl;
 import com.planmate.server.service.token.TokenService;
@@ -35,13 +36,14 @@ public class SpringConfig {
     private final MemberScrapRepository memberScrapRepository;
     private final AmazonS3 amazonS3Client;
     private final String url;
+    private final ScheduleRepository scheduleRepository;
 
     @Autowired
     public SpringConfig(final MemberRepository memberRepository,
                         final TokenRepository tokenRepository,
                         final PostRepository postRepository,
                         final PostTagRepository postTagRepository,
-                        final MemberScrapRepository memberScrapRepository, final AmazonS3 amazonS3Client, @Value("${slack.url}") String url) {
+                        final MemberScrapRepository memberScrapRepository, final AmazonS3 amazonS3Client, @Value("${slack.url}") String url, final ScheduleRepository scheduleRepository) {
         this.memberRepository = memberRepository;
         this.tokenRepository = tokenRepository;
         this.postRepository = postRepository;
@@ -49,6 +51,7 @@ public class SpringConfig {
         this.memberScrapRepository = memberScrapRepository;
         this.amazonS3Client = amazonS3Client;
         this.url = url;
+        this.scheduleRepository = scheduleRepository;
     }
 
     @Bean
@@ -74,5 +77,10 @@ public class SpringConfig {
     @Bean
     public AlertService alertService() {
         return new AlertServiceImpl(new RestTemplate(), url);
+    }
+
+    @Bean
+    public ScheduleService scheduleService() {
+        return new ScheduleServiceImpl(scheduleRepository);
     }
 }
