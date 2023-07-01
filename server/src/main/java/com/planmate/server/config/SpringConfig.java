@@ -1,5 +1,6 @@
 package com.planmate.server.config;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.planmate.server.repository.*;
 import com.planmate.server.service.member.MemberService;
@@ -8,12 +9,16 @@ import com.planmate.server.service.post.PostService;
 import com.planmate.server.service.post.PostServiceImpl;
 import com.planmate.server.service.s3.S3UploadService;
 import com.planmate.server.service.s3.S3UploaderServiceImpl;
+import com.planmate.server.service.tendinous.AlertService;
+import com.planmate.server.service.tendinous.AlertServiceImpl;
 import com.planmate.server.service.token.TokenService;
 import com.planmate.server.service.token.TokenServiceImpl;
 import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 @Generated
 /**
@@ -28,20 +33,22 @@ public class SpringConfig {
     private final PostRepository postRepository;
     private PostTagRepository postTagRepository;
     private final MemberScrapRepository memberScrapRepository;
-    private final AmazonS3Client amazonS3Client;
+    private final AmazonS3 amazonS3Client;
+    private final String url;
 
     @Autowired
     public SpringConfig(final MemberRepository memberRepository,
                         final TokenRepository tokenRepository,
                         final PostRepository postRepository,
                         final PostTagRepository postTagRepository,
-                        final MemberScrapRepository memberScrapRepository, final AmazonS3Client amazonS3Client) {
+                        final MemberScrapRepository memberScrapRepository, final AmazonS3 amazonS3Client, @Value("${slack.url}") String url) {
         this.memberRepository = memberRepository;
         this.tokenRepository = tokenRepository;
         this.postRepository = postRepository;
         this.postTagRepository = postTagRepository;
         this.memberScrapRepository = memberScrapRepository;
         this.amazonS3Client = amazonS3Client;
+        this.url = url;
     }
 
     @Bean
@@ -62,5 +69,10 @@ public class SpringConfig {
     @Bean
     public S3UploadService S3UploadService() {
         return new S3UploaderServiceImpl(amazonS3Client);
+    }
+
+    @Bean
+    public AlertService alertService() {
+        return new AlertServiceImpl(new RestTemplate(), url);
     }
 }
