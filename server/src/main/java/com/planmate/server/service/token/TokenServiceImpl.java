@@ -8,11 +8,13 @@ import com.planmate.server.exception.token.TokenNotFoundException;
 import com.planmate.server.repository.MemberRepository;
 import com.planmate.server.repository.TokenRepository;
 import com.planmate.server.util.JwtUtil;
+import lombok.Generated;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Slf4j
+@Generated
 public class TokenServiceImpl implements TokenService {
     private final MemberRepository memberRepository;
     private final TokenRepository tokenRepository;
@@ -22,18 +24,21 @@ public class TokenServiceImpl implements TokenService {
         this.memberRepository = memberRepository;
     }
 
+    /**
+     * @author 지승언
+     * @param refreshTokenDto (access token, refresh token, member id)
+     * @return 재갱신된 access token, refresh token, member id
+     * */
     @Override
     public Token reissueAccessToken(RefreshTokenDto refreshTokenDto) {
-        Long memberId = JwtUtil.getMemberId();
+        Member member = memberRepository.findById(refreshTokenDto.getId()).orElseThrow((() -> new MemberNotFoundException(refreshTokenDto.getId())));
 
-        Member member = memberRepository.findById(memberId).orElseThrow((() -> new MemberNotFoundException(memberId)));
+        Token token = tokenRepository.findById(refreshTokenDto.getId()).orElseThrow(() -> new MemberNotFoundException(refreshTokenDto.getId()));
 
-        Token token = tokenRepository.findById(memberId).orElseThrow(() -> new MemberNotFoundException(memberId));
-
-        tokenRepository.findByAccessTokenAndRefreshToken(JwtUtil.getAccessToken(), refreshTokenDto.getRefreshToken()).orElseThrow(() -> new TokenNotFoundException(memberId));
+        tokenRepository.findByAccessTokenAndRefreshToken(refreshTokenDto.getAccessToken(), refreshTokenDto.getRefreshToken()).orElseThrow(() -> new TokenNotFoundException(refreshTokenDto.getId()));
 
         token.setAccessToken(JwtUtil.createJwt(member));
-        token.setAccessTokenExpiredAt(LocalDateTime.now().plusDays(JwtUtil.ACCESS_TOKEN_EXPIRE_TIME));
+        token.setAccessTokenExpiredAt(LocalDate.now().plusDays(JwtUtil.ACCESS_TOKEN_EXPIRE_TIME));
 
         return tokenRepository.save(token);
     }

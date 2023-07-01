@@ -6,11 +6,13 @@ import com.planmate.server.exception.post.ScrapNotFoundException;
 import com.planmate.server.exception.token.TokenNotFoundException;
 import com.planmate.server.exception.token.TokenNotStartWithBearerException;
 import org.apache.coyote.Response;
+import lombok.Generated;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@Generated
 @ControllerAdvice
 public class ApiExceptionHandler {
     @ExceptionHandler(MemberNotFoundException.class)

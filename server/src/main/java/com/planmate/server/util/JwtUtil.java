@@ -3,8 +3,10 @@ package com.planmate.server.util;
 import com.planmate.server.domain.Member;
 import com.planmate.server.exception.token.TokenNotStartWithBearerException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Generated;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,7 @@ import java.util.Map;
 
 @Slf4j
 @Component
+@Generated
 public class JwtUtil {
     public static String JWT_SECRET_KEY;
     private static final long EXPIRATION_TIME =  1000 * 60 * 60 * 24 * 365; // 60일
@@ -56,14 +59,24 @@ public class JwtUtil {
     }
 
     public static boolean isExpired(String token) {
-        Date expiredDate = Jwts.parserBuilder()
-                .setSigningKey(JWT_SECRET_KEY)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration();
+        boolean isExpired = true;
 
-        return expiredDate.before(new Date());
+        try {
+            Date expiredDate = Jwts.parserBuilder()
+                    .setSigningKey(JWT_SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getExpiration();
+
+            isExpired = false;
+        }
+        catch (ExpiredJwtException ex) {
+            log.error("jwt is expired");
+            isExpired = true;
+        }
+
+        return isExpired;
     }
 
     public static Long getMemberId() {
