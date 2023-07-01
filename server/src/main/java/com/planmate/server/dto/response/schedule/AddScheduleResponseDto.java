@@ -12,12 +12,14 @@ import java.time.Period;
 @Setter
 @Getter
 public class AddScheduleResponseDto {
+    private Long id;
     private String title;
     private LocalDate date;
     private Long dDay;
 
     public static AddScheduleResponseDto of(Schedule schedule) {
         return AddScheduleResponseDto.builder()
+                .id(schedule.getId())
                 .title(schedule.getTitle())
                 .date(schedule.getTargetDate())
                 .dDay(new Long(Period.between(LocalDate.now(), schedule.getTargetDate()).getDays()))

@@ -5,4 +5,5 @@ import com.planmate.server.dto.response.schedule.AddScheduleResponseDto;
 
 public interface ScheduleService {
     public AddScheduleResponseDto addDDay(AddScheduleRequestDto addScheduleRequestDto);
+    public void deleteDDay(Long id);
 }
