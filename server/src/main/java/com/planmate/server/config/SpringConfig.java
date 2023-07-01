@@ -2,6 +2,8 @@ package com.planmate.server.config;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.planmate.server.repository.*;
+import com.planmate.server.service.logout.LogOutService;
+import com.planmate.server.service.logout.LogOutServiceImpl;
 import com.planmate.server.service.member.MemberService;
 import com.planmate.server.service.member.MemberServiceImpl;
 import com.planmate.server.service.post.PostService;
@@ -82,5 +84,10 @@ public class SpringConfig {
     @Bean
     public ScheduleService scheduleService() {
         return new ScheduleServiceImpl(scheduleRepository);
+    }
+
+    @Bean
+    public LogOutService logOutService() {
+        return new LogOutServiceImpl(tokenRepository, memberRepository);
     }
 }
