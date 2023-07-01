@@ -12,4 +12,5 @@ public interface ScheduleService {
     public void deleteDDay(Long id);
     public ScheduleResponseDto modifySchedule(ScheduleEditRequestDto editRequestDto);
     public List<Schedule> findAll();
+    public ScheduleResponseDto findMin();
 }

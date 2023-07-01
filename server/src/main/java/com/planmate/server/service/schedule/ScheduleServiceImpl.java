@@ -58,4 +58,9 @@ public class ScheduleServiceImpl implements ScheduleService {
                 () -> new MemberScheduleNotFoundException(JwtUtil.getMemberId())
         );
     }
+
+    @Override
+    public ScheduleResponseDto findMin() {
+        return ScheduleResponseDto.of(scheduleRepository.findMinSchedule());
+    }
 }
