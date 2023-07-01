@@ -111,6 +111,11 @@ public class MemberServiceImpl implements MemberService {
         );
     }
 
+    @Override
+    public void signOut() {
+        memberRepository.deleteById(JwtUtil.getMemberId());
+    }
+
     /**
      * @author 지승언
      * sns login에서 받은 Id token을 한글로 인코딩하는 함수

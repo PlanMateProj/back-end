@@ -14,4 +14,5 @@ public interface MemberService {
     public List<Authority> getAuthorities();
     public Member getInfo();
     public Member getInfo(Long id);
+    public void signOut();
 }
