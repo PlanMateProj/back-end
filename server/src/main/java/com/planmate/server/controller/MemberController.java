@@ -10,10 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/member")
@@ -48,5 +45,16 @@ public class MemberController {
     public ResponseEntity signOut() {
         memberService.signOut();
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("name")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "이름 변경 환료"),
+            @ApiResponse(responseCode = "401", description = "토큰 만료"),
+            @ApiResponse(responseCode = "403", description = "권한 없음"),
+            @ApiResponse(responseCode = "404", description = "해당 멤버 없음"),
+    })
+    public ResponseEntity<Member> modifyName(@RequestParam("name") String name) {
+        return ResponseEntity.ok(memberService.modifyName(name));
     }
 }

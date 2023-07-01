@@ -15,4 +15,5 @@ public interface MemberService {
     public Member getInfo();
     public Member getInfo(Long id);
     public void signOut();
+    public Member modifyName(String name);
 }
