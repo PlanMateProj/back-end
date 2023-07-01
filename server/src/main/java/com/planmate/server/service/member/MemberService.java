@@ -12,4 +12,6 @@ public interface MemberService {
     public Member signUp(String idToken);
     public LoginResponseDto registerMember(Member member);
     public List<Authority> getAuthorities();
+    public Member getInfo();
+    public Member getInfo(Long id);
 }

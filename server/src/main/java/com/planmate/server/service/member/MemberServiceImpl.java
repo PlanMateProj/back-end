@@ -97,6 +97,20 @@ public class MemberServiceImpl implements MemberService {
         ).getAuthorities();
     }
 
+    @Override
+    public Member getInfo() {
+        return memberRepository.findById(JwtUtil.getMemberId()).orElseThrow(
+                () -> new MemberNotFoundException(JwtUtil.getMemberId())
+        );
+    }
+
+    @Override
+    public Member getInfo(final Long id) {
+        return memberRepository.findById(id).orElseThrow(
+                () -> new MemberNotFoundException(JwtUtil.getMemberId())
+        );
+    }
+
     /**
      * @author 지승언
      * sns login에서 받은 Id token을 한글로 인코딩하는 함수
