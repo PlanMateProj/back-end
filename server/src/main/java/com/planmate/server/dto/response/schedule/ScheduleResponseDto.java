@@ -11,14 +11,14 @@ import java.time.Period;
 @Builder
 @Setter
 @Getter
-public class AddScheduleResponseDto {
+public class ScheduleResponseDto {
     private Long id;
     private String title;
     private LocalDate date;
     private Long dDay;
 
-    public static AddScheduleResponseDto of(Schedule schedule) {
-        return AddScheduleResponseDto.builder()
+    public static ScheduleResponseDto of(Schedule schedule) {
+        return ScheduleResponseDto.builder()
                 .id(schedule.getId())
                 .title(schedule.getTitle())
                 .date(schedule.getTargetDate())
