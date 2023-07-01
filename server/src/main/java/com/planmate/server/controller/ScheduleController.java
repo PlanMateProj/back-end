@@ -1,5 +1,6 @@
 package com.planmate.server.controller;
 
+import com.planmate.server.domain.Schedule;
 import com.planmate.server.dto.request.schedule.AddScheduleRequestDto;
 import com.planmate.server.dto.request.schedule.ScheduleEditRequestDto;
 import com.planmate.server.dto.response.schedule.ScheduleResponseDto;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/schedule")
@@ -61,5 +64,17 @@ public class ScheduleController {
     })
     public ResponseEntity<ScheduleResponseDto> modifyDDay(@RequestBody ScheduleEditRequestDto dto) {
         return ResponseEntity.ok(scheduleService.modifySchedule(dto));
+    }
+
+    @GetMapping("/all")
+    @ApiOperation(value = "d-day 전체 조회")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 환료"),
+            @ApiResponse(responseCode = "401", description = "토큰 만료"),
+            @ApiResponse(responseCode = "403", description = "관리자 권한 없음"),
+            @ApiResponse(responseCode = "404", description = "해당 멤버 없음"),
+    })
+    public ResponseEntity<List<Schedule>> findAll() {
+        return ResponseEntity.ok(scheduleService.findAll());
     }
 }

@@ -4,6 +4,7 @@ import com.planmate.server.domain.Schedule;
 import com.planmate.server.dto.request.schedule.AddScheduleRequestDto;
 import com.planmate.server.dto.request.schedule.ScheduleEditRequestDto;
 import com.planmate.server.dto.response.schedule.ScheduleResponseDto;
+import com.planmate.server.exception.schedule.MemberScheduleNotFoundException;
 import com.planmate.server.exception.schedule.ScheduleNotFoundException;
 import com.planmate.server.repository.ScheduleRepository;
 import com.planmate.server.util.JwtUtil;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -48,5 +50,12 @@ public class ScheduleServiceImpl implements ScheduleService {
         schedule.setTargetDate(LocalDate.parse(editRequestDto.getDate(), DateTimeFormatter.ISO_DATE));
 
         return ScheduleResponseDto.of(scheduleRepository.save(schedule));
+    }
+
+    @Override
+    public List<Schedule> findAll() {
+        return scheduleRepository.findAllByMemberId(JwtUtil.getMemberId()).orElseThrow(
+                () -> new MemberScheduleNotFoundException(JwtUtil.getMemberId())
+        );
     }
 }
