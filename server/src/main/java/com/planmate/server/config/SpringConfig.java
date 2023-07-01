@@ -1,11 +1,13 @@
 package com.planmate.server.config;
 
-import com.planmate.server.domain.MemberScrap;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.planmate.server.repository.*;
 import com.planmate.server.service.member.MemberService;
 import com.planmate.server.service.member.MemberServiceImpl;
 import com.planmate.server.service.post.PostService;
 import com.planmate.server.service.post.PostServiceImpl;
+import com.planmate.server.service.s3.S3UploadService;
+import com.planmate.server.service.s3.S3UploaderServiceImpl;
 import com.planmate.server.service.token.TokenService;
 import com.planmate.server.service.token.TokenServiceImpl;
 import lombok.Generated;
@@ -26,18 +28,20 @@ public class SpringConfig {
     private final PostRepository postRepository;
     private PostTagRepository postTagRepository;
     private final MemberScrapRepository memberScrapRepository;
+    private final AmazonS3Client amazonS3Client;
 
     @Autowired
     public SpringConfig(final MemberRepository memberRepository,
                         final TokenRepository tokenRepository,
                         final PostRepository postRepository,
                         final PostTagRepository postTagRepository,
-                        final MemberScrapRepository memberScrapRepository) {
+                        final MemberScrapRepository memberScrapRepository, final AmazonS3Client amazonS3Client) {
         this.memberRepository = memberRepository;
         this.tokenRepository = tokenRepository;
         this.postRepository = postRepository;
         this.postTagRepository = postTagRepository;
         this.memberScrapRepository = memberScrapRepository;
+        this.amazonS3Client = amazonS3Client;
     }
 
     @Bean
@@ -53,5 +57,10 @@ public class SpringConfig {
     @Bean
     public PostService postService() {
         return new PostServiceImpl(postRepository,postTagRepository,memberRepository,memberScrapRepository);
+    }
+
+    @Bean
+    public S3UploadService S3UploadService() {
+        return new S3UploaderServiceImpl(amazonS3Client);
     }
 }

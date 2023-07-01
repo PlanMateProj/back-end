@@ -72,6 +72,10 @@ logging:
 spring:
   profiles:
     active: local
+  servlet:
+    multipart:
+      max-file-size: 300MB
+      max-request-size: 300MB
   datasource:
     username: ${DB_USER_ID}
     password: ${DB_USER_PASSWORD}
@@ -127,7 +131,21 @@ sns:
       url: ${KAKAO_CALLBACK_URL}
     token:
       url:
+cloud:
+  aws:
+    s3:
+      bucket: ${S3_BUCKET}
+    credentials:
+      accessKey: ${S3_ACCESS_KEY}
+      secretKey: ${S3_SECRET_KEY}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
 logging:
+  amazonaws:
+    util:
+      EC2MetadataUtils: ERROR
   slack:
     webhook-uri: ${WEBHOOK_URL}
   config: classpath:logback-spring.xml

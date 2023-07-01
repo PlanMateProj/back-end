@@ -3,6 +3,7 @@ package com.planmate.server.service.member;
 import com.planmate.server.domain.Authority;
 import com.planmate.server.domain.Member;
 import com.planmate.server.dto.response.login.LoginResponseDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,4 +17,5 @@ public interface MemberService {
     public Member getInfo(Long id);
     public void signOut();
     public Member modifyName(String name);
+    public Member modifyImg(String img);
 }

@@ -30,7 +30,7 @@ public class AdminController {
             @ApiResponse(responseCode = "403", description = "관리자 권한 없음"),
             @ApiResponse(responseCode = "404", description = "해당 멤버 없음"),
     })
-    public ResponseEntity<Member> getInfo(@RequestParam("id") Long id) {
+    public ResponseEntity<Member> getInfo(@RequestParam(value = "id") Long id) {
         return ResponseEntity.ok(memberService.getInfo(id));
     }
 }

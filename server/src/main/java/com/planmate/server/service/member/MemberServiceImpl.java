@@ -14,6 +14,7 @@ import com.planmate.server.vo.GoogleIdTokenVo;
 import lombok.Generated;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -126,6 +127,17 @@ public class MemberServiceImpl implements MemberService {
         );
 
         member.setMemberName(name);
+
+        return memberRepository.save(member);
+    }
+
+    @Override
+    public Member modifyImg(final String img) {
+        Member member = memberRepository.findById(JwtUtil.getMemberId()).orElseThrow(
+                () -> new MemberNotFoundException(JwtUtil.getMemberId())
+        );
+
+        member.setProfile(img);
 
         return memberRepository.save(member);
     }
