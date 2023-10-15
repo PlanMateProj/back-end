@@ -2,7 +2,9 @@
 
 ## 프로젝트 소개
 백엔드 개발 : 총 2인
+</br>
 backend tech : Spring Boot, Spring Data JPA, Spring Security,Spring MVC, Hibernate, Oauth2, Gradle
+</br>
 devops tech : EC2, RDS, Cloud Watch, Event Bridge, Lambda, SNS, MySQL
 
 planmate는 고시생, 취업 준비생의 학습을 돕는 웹 플랫폼입니다.  플랜메이트는 웹에서 학습량을 체크하고 학습 히스토리 기능을 제공합니다.
