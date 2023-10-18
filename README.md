@@ -11,8 +11,8 @@ planmate는 고시생, 취업 준비생의 학습을 돕는 웹 플랫폼입니�
 인터넷 강의, 유튜브 등으로 학습을 자주 진행하는 사람들이 앱 플랫폼 외에 웹 환경에서 자신의 학습량을 쉽게 확인할 수 있도록 기획된 프로젝트 입니다.
 
 ## ERD
-![planmate-ERD](https://github.com/PlanMateProj/back-end/assets/80220062/25087616-9194-4150-9b23-96e073cefe91)
+![planmate-ERD](https://github.com/PlanMateProj/back-end/assets/80220062/ff9494ad-2714-4975-ad85-aadd2ab2b9b3)
 
 ## Architecture
-![planmate-architecture](https://github.com/PlanMateProj/back-end/assets/80220062/df68f84b-3411-4642-b91d-9549c2d8ecc0)
+![planmate-architecture](https://github.com/PlanMateProj/back-end/assets/80220062/e81ffd00-ec83-464c-a593-3d6099989fe1)
 
